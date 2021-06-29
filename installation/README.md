@@ -3,7 +3,7 @@
 K8S（Kubernetes）在国外安装很简单，因为kubernetes依赖的镜像从gcr.io（Google Container Registry）获取，该网址在国内被墙了，所以需要其它办法获取镜像。
 本文通过搭建一个一主两从的k8s集群，介绍国内搭建k8s的详细过程。
 
-## 环境
+## 环境
 
 | 角色 | 机器名 | 机器IP | OS |
 |---|---|---|---|
@@ -118,7 +118,7 @@ for imageName in ${images[@]} ; do
 done
 ```
 
-<font color="red" font-weight="bold">重要!</font> kubeadm拉镜像时可以指定registry，在国内可以用以下命令提前下载所需镜像
+！！！kubeadm拉镜像时可以指定registry，在国内可以用以下命令提前下载所需镜像
 
 ```bash
 kubeadm config images pull --image-repository=registry.cn-hangzhou.aliyuncs.com/google_containers
@@ -157,13 +157,11 @@ kubeadm join 172.29.75.235:6443 --token r760l1.8v1dhgdqil258wco \
 
 ### 安装网络插件
 
-本文安装flannel网络插件，其它插件的安装可参考插件的官方文档。
+本文安装flannel网络插件，flannel[官文文档](https://github.com/flannel-io/flannel)，其它插件的安装可参考插件的官方文档。
 
 ```bash
 # kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
 ```
-
-> **注**: flannel[官文文档](https://github.com/flannel-io/flannel)
 
 ### 集群加入Worker Node
 
